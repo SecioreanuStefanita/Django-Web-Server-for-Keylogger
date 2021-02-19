@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<button id="myBtn" type="button" class="btn btn-primary btn-lg btn-block">Easy acces to the script</button>
+{% for item in all %}
+  <div class="jumbotron">
+  <h1 class="display-3">Username: {{item.user}}</h1>
+  <p class="lead">Private IP: {{item.ip_privat}}</p>
+  <hr class="my-4">
+  <p>Public IP: {{item.ip_public}}</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="/detailedview?id={{item.id}}" role="button">See the logs</a>
+  </p>
+</div>
+{% endfor %}
+{% endblock %}

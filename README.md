@@ -1,4 +1,4 @@
-# Python-Keylogger-Script-with-Django-Web-Server
+# Django-Web-Server-for-Keylogger
 # Disclaimer: This is the Server part of my python project:FOR PART 1 CHECK Python-Keylogger Repo
 
 
